@@ -67,21 +67,21 @@ if st.button("Recommend"):
     names, posters_link, homepage = recommend(selected_movie)
     col1, col2, col3, col4, col5 = st.columns(5)
     with col1:
-        st.write(f"[**{names[0]}**]({homepage[0]})")
+        st.write(f"[`{names[0]}`]({homepage[0]})")
         st.image(posters_link[0])
 
     with col2:
-        st.write(f"[**{names[1]}**]({homepage[1]})")
+        st.write(f"[`{names[1]}`]({homepage[1]})")
         st.image(posters_link[1])
 
     with col3:
-        st.write(f"[**{names[2]}**]({homepage[2]})")
+        st.write(f"[`{names[2]}`]({homepage[2]})")
         st.image(posters_link[2])
 
     with col4:
-        st.write(f"[**{names[3]}**]({homepage[3]})")
+        st.write(f"[`{names[3]}`]({homepage[3]})")
         st.image(posters_link[3])
 
     with col5:
-        st.write(f"[**{names[3]}**]({homepage[3]})")
+        st.write(f"[`{names[3]}`]({homepage[3]})")
         st.image(posters_link[4])
