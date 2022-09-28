@@ -11,8 +11,9 @@ movies_name_list = movies_final["title"].values
 # Similarity Matrix
 similarity_matrix = pickle.load(open("similarity_matrix.pkl", "rb"))
 
-
 # Fetch Posters
+
+
 def fetch_poster(movie_id):
     response = requests.get(
         f"https://api.themoviedb.org/3/movie/{movie_id}?api_key=1a58380d51ac1b466f75ec680d63a591&language=en-US")
@@ -58,7 +59,7 @@ def recommend(movie):
 
 
 st.title("Movie Recommendation System")
-
+st.caption("This is a Content Based Recommendation System using Natural Language Processing. This System has 4806 movies you can choose from, based on that you'll be recommended top 5 similar movies. Further you can click on the movie names that was recommended and then you'll be redirected to it's respective IMDB page. Thanks for visiting !!! 😇 ")
 selected_movie = st.selectbox(
     'Select a movie from the dropdown menu or simply just search it 😇',
     movies_name_list)
