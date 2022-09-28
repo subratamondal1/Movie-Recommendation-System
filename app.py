@@ -2,9 +2,13 @@ import streamlit as st
 import pickle
 import requests
 
+# Load movies_final dataframe
 movies_final = pickle.load(open("movies.pkl", "rb"))
+
+# Load movies_name_list
 movies_name_list = movies_final["title"].values
 
+# Similarity Matrix
 similarity_matrix = pickle.load(open("similarity_matrix.pkl", "rb"))
 
 
@@ -17,10 +21,18 @@ def fetch_poster(movie_id):
     return "https://image.tmdb.org/t/p/w500/" + data["poster_path"]
 
 
+def fetch_imdb_movie_page(movie_id):
+    response = requests.get(
+        f"https://api.themoviedb.org/3/movie/{movie_id}?api_key=1a58380d51ac1b466f75ec680d63a591&language=en-US")
+    data = response.json()
+    return "https://www.imdb.com/title/" + data["imdb_id"] + "/"
+
+
 # Movie Recommendations
 def recommend(movie):
     recommended_movies = []
     recommended_movies_poster = []
+    recommended_movies_imdb_homepage = []
 
     # Get the index from movies DataFrame
     movie_index = movies_final[movies_final["title"] == movie].index[0]
@@ -39,7 +51,10 @@ def recommend(movie):
         # Fetch Poster from API using movie_id
         recommended_movies_poster.append(fetch_poster(movies_id))
 
-    return recommended_movies, recommended_movies_poster
+        recommended_movies_imdb_homepage.append(
+            fetch_imdb_movie_page(movies_id))
+
+    return recommended_movies, recommended_movies_poster, recommended_movies_imdb_homepage
 
 
 st.title("Movie Recommendation System")
@@ -49,24 +64,24 @@ selected_movie = st.selectbox(
     movies_name_list)
 
 if st.button("Recommend"):
-    names, posters_link = recommend(selected_movie)
+    names, posters_link, homepage = recommend(selected_movie)
     col1, col2, col3, col4, col5 = st.columns(5)
     with col1:
-        st.text(names[0])
+        st.write(f"[**{names[0]}**]({homepage[0]})")
         st.image(posters_link[0])
 
     with col2:
-        st.text(names[1])
+        st.write(f"[**{names[1]}**]({homepage[1]})")
         st.image(posters_link[1])
 
     with col3:
-        st.text(names[2])
+        st.write(f"[**{names[2]}**]({homepage[2]})")
         st.image(posters_link[2])
 
     with col4:
-        st.text(names[3])
+        st.write(f"[**{names[3]}**]({homepage[3]})")
         st.image(posters_link[3])
 
     with col5:
-        st.text(names[4])
+        st.write(f"[**{names[3]}**]({homepage[3]})")
         st.image(posters_link[4])
