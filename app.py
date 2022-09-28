@@ -84,5 +84,5 @@ if st.button("Recommend"):
         st.image(posters_link[3])
 
     with col5:
-        st.write(f"[`{names[3]}`]({homepage[3]})")
+        st.write(f"[`{names[3]}`]({homepage[4]})")
         st.image(posters_link[4])
